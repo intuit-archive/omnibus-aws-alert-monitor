@@ -1,0 +1,11 @@
+#!/bin/bash
+
+INSTALLER_DIR=/opt/intu/aws-alert-monitor
+
+rm -f /usr/bin/aws-alert-monitor
+
+ln -sf $INSTALLER_DIR/bin/aws-alert-monitor /usr/bin
+
+echo "Thank you for installing AWS Alert Monitor!"
+
+exit 0
