@@ -4,9 +4,23 @@ This contains the skelton for building Omnibus AWS Alert Monitor packages.
 
 ## Build
 
-To build the AWS Alert Monitor RPM on the local system:
+To build the s3cmd RPM on the local system:
 
-    bundle exec rake projects:aws-alert-monitor
+* The environment variables for version and iteration must be set,
+  the version will correspond to gem version being pulled down
+  and will result in the package version being created. Iteration only corresponds
+  to the rpm version iteration.
+
+        export version=0.1.0
+        export iteration=1
+
+		yum install -y --quiet intu-ruby git s3cmd rpm-build  python-setuptools
+		gem install bundler -v 1.2.2 --no-ri --no-rdoc --quiet
+		git clone --quiet https://github.com/intuit/omnibus-aws-alert-monitor.git /var/tmp/omnibus-s3cmd
+		cd /var/tmp/omnibus-aws-alert-monitor
+		bundle install --quiet --binstubs
+		bin/omnibus build project aws-alert-monitor
+
 
 ## Continuous Integration
 

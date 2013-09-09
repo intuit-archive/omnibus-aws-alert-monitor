@@ -1,6 +1,6 @@
 bash -c '
 # Exit On Error
-set -e
+set -ex
 
 # Add Intu Repo (For Ruby and S3cmd RPMs)
 cat > /etc/yum.repos.d/intu-packages-us-west-1.repo << EOS
@@ -17,6 +17,10 @@ access_key = <%= "#{ENV['AWS_ACCESS_KEY_ID']}" %>
 secret_key = <%= "#{ENV['AWS_SECRET_ACCESS_KEY']}" %>
 EOS
 
+# Set version for build
+export version=<%= "#{ENV['version']}" %>
+export iteration=<%= "#{ENV['iteration']}" %>
+
 # Install Required RPMs
 yum install -y --quiet intu-ruby git s3cmd rpm-build
 
@@ -29,11 +33,17 @@ git clone --quiet https://github.com/intuit/omnibus-aws-alert-monitor.git /var/t
 # Change directory to build cloned repo
 cd /var/tmp/omnibus-aws-alert-monitor
 
+# Use appropriate build branch if passed via Jenkins UI
+branch=<%= "#{ENV['GIT_BRANCH']}" %>
+if [ -n "$branch" ];then
+  git checkout --track origin/${branch}
+fi
+
 # Install Bundle
-bundle install --quiet
+bundle install --quiet --binstubs
 
 # Build aws-alert-monitor RPM
-bundle exec rake projects:aws-alert-monitor
+bin/omnibus build project aws-alert-monitor
 
 # Upload RPM to Omnibus package bucket
 for rpm in $(ls -d /var/cache/omnibus/pkg/aws-alert-monitor*.rpm); do
