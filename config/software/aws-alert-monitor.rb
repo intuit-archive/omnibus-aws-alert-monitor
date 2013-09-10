@@ -1,5 +1,5 @@
 name "aws-alert-monitor"
-version "0.1.0"
+version ENV['version']
 
 dependencies ["libxslt", "libxml2", "rubygems", "ruby"]
 
