@@ -1,7 +1,7 @@
 name "aws-alert-monitor"
 version ENV['version']
 
-dependencies ["rubygems"]
+dependencies ["libxslt", "libxml2", "rubygems", "ruby"]
 
 env = { "GEM_HOME" => nil, "GEM_PATH" => nil }
 
