@@ -20,6 +20,8 @@ fi
 
 # Set ruby version
 RUBY_VERSION=2.0.0-p247
+echo RUBY_VERSION = $RUBY_VERSION
+echo GIT_BRANCH = $GIT_BRANCH
 
 # Install ruby version
 rvm install ruby-$RUBY_VERSION --disable-binary --verify-downloads 1
