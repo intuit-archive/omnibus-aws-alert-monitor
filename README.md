@@ -1,5 +1,7 @@
 ## omnibus-aws-alert-monitor
 
+**!!! This project has been deprecated. We recommend you fork it to your local repo or look for an alternative solution. !!!**
+
 This contains the skelton for building Omnibus AWS Alert Monitor packages.
 
 ## Build
